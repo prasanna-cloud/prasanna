@@ -9,22 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// DAO: Data Access Object
+
 public class EmployeeDAO {
 
 	String JDBC_DRIVER, DB_URL, USER, PASS;
 	static Connection conn;
 	public EmployeeDAO() {
 		super();
-		// Step 1: Declaration of Driver Name
+		
 				JDBC_DRIVER = "com.mysql.jdbc.Driver";
 				
-				// Step 2: Loading of Driver with Connection String and Username and Password of the DB
+			
 				DB_URL = "jdbc:mysql://localhost:3306/employeeservicesdatabase";
 				USER = "root";
 				PASS = "prasanna";
 
-				// Step 3: Creating Connection Class object to Actually Connect to the Database
+				
 				try {
 					conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				} catch (SQLException e) {
@@ -34,7 +34,7 @@ public class EmployeeDAO {
 	}
 
 	public Employee getEmployee(String empid) throws SQLException {
-		// logic here for Getting Employee
+		
 		Employee emp = new Employee();
 		PreparedStatement ps = conn.prepareStatement("select * from employeedata where id = ?");
 		ps.setString(1, empid);
@@ -50,7 +50,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> getAllEmployees() throws SQLException {
-		// logic here for Getting all Employees
+		
 		List<Employee> mList = new ArrayList<Employee>();
 		PreparedStatement ps = conn.prepareStatement("select * from employeedata");
 		ResultSet rs = ps.executeQuery();
@@ -67,7 +67,7 @@ public class EmployeeDAO {
 	}
 	
 	public int addEmployee(Employee employee) throws SQLException {
-		// Logic here for Adding Employee
+		
 		PreparedStatement ps =
 		conn.prepareStatement("insert into employeedata(id, name, email, salary, designation)  values(?,?,?,?,?)");
 		ps.setString(1, employee.getId());
@@ -79,7 +79,7 @@ public class EmployeeDAO {
 	}
 	
 	public int editUpdateEmployee(Employee employee) throws SQLException {
-		// Logic here for Editing Employee
+	
 		PreparedStatement ps = 
 		conn.prepareStatement("update employeedata set name=?, email=?, salary=?, designation=? where id=?");
 		ps.setString(1, employee.getName());
@@ -91,7 +91,7 @@ public class EmployeeDAO {
 	}
 	
 	public static int deleteEmployee(String empid) throws SQLException {
-		// Logic here for Deleting Employee
+		
 			PreparedStatement ps = conn.prepareStatement("delete from employeedata where id = ?");
 			ps.setString(1, empid);
 			return ps.executeUpdate();
